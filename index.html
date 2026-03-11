@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Shopping List</title>
+    <meta name="theme-color" content="#4f46e5">
+    <meta name="description" content="Track your shopping list and stay within budget.">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" href="./icons/icon-192.png" sizes="192x192" type="image/png">
+    <link rel="icon" href="./icons/icon-512.png" sizes="512x512" type="image/png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="install-toast" class="install-toast" role="status" aria-live="polite" hidden></div>
+    <main class="app">
+        <section id="install-bar" class="install-bar" role="status" aria-live="polite">
+            <div>
+                <strong id="install-title">📥 Download this app</strong>
+                <p id="install-text">Install for offline use and quick access from your home screen.</p>
+            </div>
+            <button id="install-app-btn" type="button">Download App</button>
+        </section>
+
+        <header class="app-header">
+            <div class="header-top-row">
+                <h1 id="app-title">🛒 Budget Shopping List</h1>
+                <div class="lang-switch">
+                    <label id="language-label" for="language-switch">Language</label>
+                    <select id="language-switch" aria-label="Language switch">
+                        <option value="en">English</option>
+                        <option value="pt-BR">Português (Brasil)</option>
+                    </select>
+                </div>
+            </div>
+            <p id="app-subtitle">Plan smarter. Spend less. Never forget milk.</p>
+        </header>
+
+        <section class="card budget-card" aria-labelledby="budget-title">
+            <h2 id="budget-title">Budget</h2>
+            <form id="budget-form" class="budget-form">
+                <label for="budget-input">Set budget (R$)</label>
+                <div class="budget-row">
+                    <input id="budget-input" type="number" min="0" step="0.01" placeholder="e.g. 120" required>
+                    <button type="submit">Save Budget</button>
+                </div>
+            </form>
+
+            <div class="stats" role="status" aria-live="polite">
+                <div><span id="budget-stat-label">Budget:</span> <strong id="budget-amount">R$0.00</strong></div>
+                <div><span id="spent-stat-label">Planned spend:</span> <strong id="spent-amount">R$0.00</strong></div>
+                <div><span id="remaining-stat-label">Remaining:</span> <strong id="remaining-amount">R$0.00</strong></div>
+            </div>
+            <div id="over-budget-banner" class="over-budget-banner" hidden></div>
+            <div class="progress-track" aria-hidden="true">
+                <div id="budget-progress" class="progress-fill"></div>
+            </div>
+        </section>
+
+        <section class="card" aria-labelledby="list-title">
+            <h2 id="list-title">Add Shopping Item</h2>
+            <form id="shopping-form" class="shopping-form">
+                <input type="hidden" id="editing-id" value="">
+                <div class="grid two">
+                    <div>
+                        <label for="item-input">Item name</label>
+                        <input type="text" id="item-input" placeholder="Eggs" required>
+                    </div>
+                    <div>
+                        <label for="store-input">Store</label>
+                        <input type="text" id="store-input" placeholder="Local market" required>
+                    </div>
+                </div>
+
+                <div class="grid three">
+                    <div>
+                        <label for="quantity-input">Qty</label>
+                        <input type="number" id="quantity-input" min="1" value="1" required>
+                    </div>
+                    <div>
+                        <label for="price-input">Price each (R$)</label>
+                        <input type="number" id="price-input" min="0" step="0.01" placeholder="0.00" required>
+                    </div>
+                    <div>
+                        <label for="category-input">Category</label>
+                        <select id="category-input" required>
+                            <option value="">Select</option>
+                            <option>Fruits</option>
+                            <option>Vegetables</option>
+                            <option>Dairy</option>
+                            <option>Meat</option>
+                            <option>Bakery</option>
+                            <option>Beverages</option>
+                            <option>Household</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid two">
+                    <div>
+                        <label for="priority-input">Priority</label>
+                        <select id="priority-input" required>
+                            <option value="">Select</option>
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="notes-input">Notes (optional)</label>
+                        <input type="text" id="notes-input" placeholder="Brand, size, etc.">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" id="submit-item" class="primary">Add Item</button>
+                    <button type="button" id="cancel-edit" class="ghost" hidden>Cancel Edit</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="card" aria-labelledby="items-title">
+            <div class="section-head">
+                <h2 id="items-title">Shopping Todo</h2>
+                <button id="clear-completed" type="button" class="ghost">Clear Completed</button>
+            </div>
+            <div class="filters" aria-label="List filters">
+                <label class="check-inline" for="essentials-only">
+                    <input id="essentials-only" type="checkbox">
+                    <span id="essentials-label">Buy only essentials (High priority)</span>
+                </label>
+                <label for="sort-mode">Sort</label>
+                <select id="sort-mode">
+                    <option value="high-first">Priority: High first</option>
+                    <option value="newest">Newest first</option>
+                </select>
+            </div>
+            <ul id="shopping-list" class="shopping-list"></ul>
+        </section>
+        <small>
+        <footer class="app-footer">Built and maintained by: Ese</footer>
+        </small>
+    </main>
+
+    <script src="index.js"></script>
+</body>
+</html>
