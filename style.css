@@ -56,6 +56,16 @@ body {
 	padding: 0.6rem 0 0.2rem;
 }
 
+.app-footer a {
+	color: var(--brand-2);
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.app-footer a:hover {
+	text-decoration: underline;
+}
+
 .install-bar {
 	display: flex;
 	align-items: center;
